@@ -11,7 +11,18 @@ import SwiftUI
 struct Fetch_RecipesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(selectedOption:
+                    Recipe(
+                    id: UUID(),
+                    cuisine: "American",
+                    name: "Pasta",
+                    photo_url_large: nil,
+                    photo_url_small: nil,
+                    source_url: nil,
+                    uuid: "abc-123",
+                    youtube_url: nil
+                )
+            )
         }
     }
 }

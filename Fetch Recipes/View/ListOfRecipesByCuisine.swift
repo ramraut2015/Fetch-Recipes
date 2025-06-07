@@ -1,21 +1,17 @@
 import SwiftUI
 
-struct ItemsByCuisine: View {
+ struct ListOfRecipesByCuisine: View {
     @StateObject private var viewModel = RecipeViewModel()
-    // organizing an array of Recipe objects into a dictionary where key is cusine and
-    //value is an array of recipes
-    var groupedRecipes: [String: [Recipe]] {
-        Dictionary(grouping: viewModel.recipes, by: { $0.cuisine ?? "" })
-    }
+    
    
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
+         VStack(){
             List {
-                ForEach(groupedRecipes.keys.sorted(), id: \.self) { cuisine in
+                ForEach(viewModel.groupedRecipes.keys.sorted(), id: \.self) { cuisine in
                     Section(header: Text(cuisine).font(.title3.bold())) {
-                        ForEach(groupedRecipes[cuisine] ?? [], id: \.self) { recipe in
+                        ForEach(viewModel.groupedRecipes[cuisine] ?? [], id: \.self) { recipe in
                             HStack(spacing: 17){
-                                VStack(alignment: .leading, spacing: 8){
+                                VStack(alignment: .leading, spacing: 18){
                                     Text(recipe.name ?? "")
                                         .foregroundColor(.black)
                                         .font(.system(size: 14))
@@ -26,7 +22,7 @@ struct ItemsByCuisine: View {
                                     HStack(spacing: 18){
                                         Text("Buy 1, Get 1 Free")
                                             .foregroundColor(.green)
-                                            .font(.system(size: 14))
+                                            .font(.system(size: 11))
                                             .fontWeight(.bold)
                                             
                                         Text("$8.99")
@@ -59,10 +55,11 @@ struct ItemsByCuisine: View {
                 viewModel.loadRecipes()
             }
         }
-        
+         
     }
+    
 }
 
 #Preview {
-    ItemsByCuisine()
+    ListOfRecipesByCuisine()
 }
